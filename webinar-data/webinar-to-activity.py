@@ -101,7 +101,6 @@ with open(csv_file_path, 'r') as csvfile:
             send_post_request(json_data)
 
         if row['NPS'].isnumeric():
-            print('is int!')
             json_record= {
             "id": row['\ufeffID'] + '_s',
             "activityType": "answered_form_survey",
