@@ -5,8 +5,6 @@ import os
 import sys
 import hashlib
 
-# Path to CSV file
-
 token = os.environ["COMMONROOM_TOKEN"]
 
 if not token:
