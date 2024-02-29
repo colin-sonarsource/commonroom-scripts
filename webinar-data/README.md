@@ -2,8 +2,6 @@ This script allows us to import a CSV of Webinar registration/attendee data into
 
 The CSV needs to include the following columns, in no particular order:
 
-A CSV with (at minimum) the following columns:
-
 - ID
 - User Name (Original Name)
 - Email
@@ -24,7 +22,7 @@ A CSV with (at minimum) the following columns:
 - Would you like to be contacted?
 - Which Sonar product(s) do you currently use?
 
-The script relies on a single environment variable `COMMONROOM_TOKEN`  for authentication
+The script relies on a single environment variable `COMMONROOM_TOKEN`  for authentication.
 
 The script accepts three arguments:
 
@@ -32,6 +30,15 @@ The script accepts three arguments:
 - CSV file path
 - Webinar Name
 
+**Example:**
 ```
   python3 webinar-to-activity.py 45474 ccprinciplespractices.csv "Clean Code Principles and Practices"
 ```
+
+For each webinar registration, up to 3 activities may be created in CommonRoom
+
+- Webinar Registration
+- Webinar Attendance
+- Completing the survey after the Webinar
+
+Each activity is a child activity of the previous one
