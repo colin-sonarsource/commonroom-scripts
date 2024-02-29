@@ -3,10 +3,16 @@ import json
 import requests
 import os
 import sys
+import hashlib
 
 # Path to CSV file
 
-token = path = os.environ["COMMONROOM_TOKEN"]
+token = os.environ["COMMONROOM_TOKEN"]
+
+if not token:
+    print("No value found for COMMONROOM_TOKEN environment variable.")
+    exit()
+
 destinationId = sys.argv[1]
 csv_file_path = sys.argv[2]
 webinar_name = sys.argv[3]
@@ -32,8 +38,11 @@ with open(csv_file_path, 'r') as csvfile:
     csvreader = csv.DictReader(csvfile)
 
     for row in csvreader:
+        info_to_hash = row['Email'] + webinar_name + row['Registration Time']
+        id = hashlib.sha256(info_to_hash.encode('utf-8')).hexdigest()
+
         json_record= {
-            "id": row['\ufeffID'],
+            "id": id,
             "activityType": "registered_for_webinar",
             "user":{
                 "id": row['Email'],
@@ -62,10 +71,10 @@ with open(csv_file_path, 'r') as csvfile:
         print(json_data)
         send_post_request(json_data)
 
-        if row['Attended'] == 'Yes':
+        if row['\ufeffAttended'] == 'Yes':
 
             json_record= {
-            "id": row['\ufeffID'] + '_a',
+            "id": id,
             "activityType": "attended_webinar",
             "user":{
                 "id": row['Email'],
@@ -90,7 +99,7 @@ with open(csv_file_path, 'r') as csvfile:
                 "name": webinar_name
             },
             "parentActivity":{
-                "id": row['\ufeffID'],
+                "id": id,
                 "activityType": "registered_for_webinar"
 
             }
@@ -102,7 +111,7 @@ with open(csv_file_path, 'r') as csvfile:
 
         if row['NPS'].isnumeric():
             json_record= {
-            "id": row['\ufeffID'] + '_s',
+            "id": id,
             "activityType": "answered_form_survey",
             "user":{
                 "id": row['Email'],
@@ -127,7 +136,7 @@ with open(csv_file_path, 'r') as csvfile:
                 "name": webinar_name
             },
             "parentActivity":{
-                "id": row['\ufeffID'] + '_a',
+                "id": id,
                 "activityType": "attended_webinar"
 
             }
