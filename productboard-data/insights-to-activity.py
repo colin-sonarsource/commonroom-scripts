@@ -57,11 +57,8 @@ with open(csv_file_path, 'r') as csvfile:
             },
             "url":"https://sonarsource.productboard.com/all-notes/notes/" + row['\ufeffid'],
             "timestamp": row['created_at'],
-            "subSource":{
-                "type": "name",
-                "name": row['note_title'].split().str[0]
-            },
         }
+        
         json_data=json.dumps(json_record, indent=4)
         print(json_data)
         send_post_request(json_data)
