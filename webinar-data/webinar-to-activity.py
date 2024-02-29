@@ -17,8 +17,6 @@ destinationId = sys.argv[1]
 csv_file_path = sys.argv[2]
 webinar_name = sys.argv[3]
 
-# Open CSV file
-
 def send_post_request(json_record):
     url = 'https://api.commonroom.io/community/v1/source/'+destinationId+'/activity'
     headers = {
@@ -32,6 +30,9 @@ def send_post_request(json_record):
         print("Successfully sent record")
     else:
         print(f"Failed to send data. Status Code: {response.status_code}, Response: {response.text}")
+
+
+# Open CSV file
 
 with open(csv_file_path, 'r') as csvfile:
 
