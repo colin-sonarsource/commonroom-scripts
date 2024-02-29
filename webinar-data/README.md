@@ -2,7 +2,6 @@ This script allows us to import a CSV of Webinar registration/attendee data into
 
 The CSV needs to include the following columns, in no particular order:
 
-- ID
 - User Name (Original Name)
 - Email
 - Organization
@@ -41,4 +40,6 @@ For each webinar registration, up to 3 activities may be created in CommonRoom
 - Webinar Attendance
 - Completing the survey after the Webinar
 
-Each activity is a child activity of the previous one
+Each activity is a child activity of the previous one.
+
+The ID of each activity is a SHA256 hash of the column `Email`, the webinar name passed to the script, and the column `Registration Time`.
