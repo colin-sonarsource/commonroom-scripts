@@ -61,7 +61,6 @@ with open(csv_file_path, 'r') as csvfile:
         json_data=json.dumps(json_record, indent=4)
         print(json_data)
         send_post_request(json_data)
-        #sleep(0.1)
 
         if row['Attended'] == 'Yes':
 
@@ -100,7 +99,6 @@ with open(csv_file_path, 'r') as csvfile:
             json_data=json.dumps(json_record, indent=4)
             print(json_data)
             send_post_request(json_data)
-            #sleep(0.1)
 
         if row['NPS'].isnumeric():
             print('is int!')
@@ -138,8 +136,6 @@ with open(csv_file_path, 'r') as csvfile:
             json_data=json.dumps(json_record, indent=4)
             print(json_data)
             send_post_request(json_data)
-            #sleep(0.1)
-
 
         
         
